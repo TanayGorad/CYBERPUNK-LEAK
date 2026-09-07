@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NIGHT//CITY — Cyberpunk Interface</title>
+
+<!-- Futuristic / game-style fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<style>
+
+/* =====================================================
+   CYBERPUNK UI
+===================================================== */
+
+:root {
+    --yellow: #fcee0a;
+    --yellow2: #fff900;
+    --cyan: #00eaff;
+    --red: #ff1744;
+    --black: #050505;
+    --dark: #0c0c0c;
+    --panel: #111;
+    --white: #f4f4f4;
+    --gray: #858585;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #050505;
+    color: white;
+    font-family: "Rajdhani", sans-serif;
+    overflow-x: hidden;
+}
+
+/* Scanline overlay */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,.015) 0px,
+            rgba(255,255,255,.015) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+}
+
+/* Noise */
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+
+    opacity: .04;
+
+    background-image:
+        url("https://grainy-gradients.vercel.app/noise.svg");
+}
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+nav {
+    position: fixed;
+    z-index: 500;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 75px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 6%;
+
+    background: rgba(5,5,5,.88);
+    border-bottom: 2px solid var(--yellow);
+
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    font-family: "Barlow Condensed", sans-serif;
+
+    font-size: 30px;
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    color: var(--yellow);
+
+    transform: skew(-8deg);
+
+    text-shadow:
+        3px 3px 0 #000,
+        0 0 15px rgba(252,238,10,.3);
+}
+
+.logo span {
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    gap: 35px;
+}
+
+.nav-links a {
+    color: #aaa;
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    transition: .2s;
+}
+
+.nav-links a:hover {
+    color: var(--yellow);
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+    height: 100vh;
+    min-height: 650px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    padding: 100px 7% 50px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.95) 0%,
+            rgba(0,0,0,.75) 38%,
+            rgba(0,0,0,.15) 100%
+        ),
+
+        url("https://cdn.wallpapersafari.com/76/14/4F5RAxu.jpg")
+        center / cover;
+}
+
+/* red light */
+
+.hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    right: -200px;
+    top: 20%;
+
+    background: var(--red);
+
+    filter: blur(180px);
+
+    opacity: .25;
+}
+
+/* hero content */
+
+.hero-content {
+    position: relative;
+    z-index: 5;
+
+    max-width: 850px;
+}
+
+.kicker {
+    color: var(--yellow);
+
+    font-family: "Share Tech Mono", monospace;
+
+    font-size: 14px;
+
+    letter-spacing: 5px;
+
+    margin-bottom: 20px;
+}
+
+.title {
+    font-family: "Barlow Condensed", sans-serif;
+
+    font-size: clamp(80px, 13vw, 190px);
+
+    font-weight: 900;
+
+    line-height: .75;
+
+    text-transform: uppercase;
+
+    letter-spacing: -5px;
+
+    color: white;
+
+    text-shadow:
+        5px 5px 0 #000,
+        -2px 0 var(--cyan);
+}
+
+.title .yellow {
+    color: var(--yellow);
+
+    text-shadow:
+        5px 5px 0 #000,
+        0 0 25px rgba(252,238,10,.25);
+}
+
+.subtitle {
+    margin-top: 35px;
+
+    max-width: 600px;
+
+    font-size: 20px;
+
+    line-height: 1.5;
+
+    color: #ccc;
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.buttons {
+    display: flex;
+    gap: 15px;
+
+    margin-top: 35px;
+
+    flex-wrap: wrap;
+}
+
+.btn {
+    position: relative;
+
+    display: inline-block;
+
+    padding: 15px 35px;
+
+    background: var(--yellow);
+
+    color: #000;
+
+    text-decoration: none;
+
+    font-family: "Barlow Condensed", sans-serif;
+
+    font-size: 19px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    clip-path:
+        polygon(
+            10px 0,
+            100% 0,
+            100% calc(100% - 10px),
+            calc(100% - 10px) 100%,
+            0 100%,
+            0 10px
+        );
+
+    transition: .2s;
+}
+
+.btn:hover {
+    background: white;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 0 20px var(--yellow);
+}
+
+.btn.dark {
+    background: transparent;
+
+    color: white;
+
+    border: 1px solid var(--yellow);
+}
+
+/* =====================================================
+   SIDE HUD
+===================================================== */
+
+.hud {
+    position: absolute;
+
+    right: 6%;
+    bottom: 50px;
+
+    width: 230px;
+
+    padding: 20px;
+
+    background: rgba(0,0,0,.7);
+
+    border-left: 3px solid var(--yellow);
+
+    font-family: "Share Tech Mono", monospace;
+
+    font-size: 12px;
+}
+
+.hud-title {
+    color: var(--yellow);
+
+    margin-bottom: 15px;
+
+    font-size: 14px;
+}
+
+.bar {
+    height: 5px;
+
+    margin: 7px 0 15px;
+
+    background: #333;
+}
+
+.bar span {
+    display: block;
+
+    height: 100%;
+
+    background: var(--yellow);
+}
+
+.bar.one span {
+    width: 87%;
+}
+
+.bar.two span {
+    width: 63%;
+}
+
+.bar.three span {
+    width: 94%;
+}
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+section {
+    position: relative;
+
+    padding: 110px 7%;
+
+    background: var(--black);
+}
+
+.section-label {
+    color: var(--yellow);
+
+    font-family: "Share Tech Mono", monospace;
+
+    font-size: 13px;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 10px;
+}
+
+.section-title {
+    font-family: "Barlow Condensed", sans-serif;
+
+    font-size: clamp(50px, 7vw, 100px);
+
+    font-weight: 900;
+
+    line-height: .85;
+
+    text-transform: uppercase;
+
+    margin-bottom: 60px;
+}
+
+.section-title span {
+    color: var(--yellow);
+}
+
+/* =====================================================
+   CHARACTER CARDS
+===================================================== */
+
+.cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(260px, 1fr));
+
+    gap: 25px;
+}
+
+.card {
+    position: relative;
+
+    height: 390px;
+
+    overflow: hidden;
+
+    background: #111;
+
+    border: 1px solid #333;
+
+    transition: .35s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+
+    border-color: var(--yellow);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.7),
+        0 0 20px rgba(252,238,10,.1);
+}
+
+.card-image {
+    position: absolute;
+
+    inset: 0;
+
+    background-size: cover;
+    background-position: center;
+
+    filter: saturate(1.2);
+
+    transition: .5s;
+}
+
+.card:hover .card-image {
+    transform: scale(1.08);
+}
+
+.card::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            transparent 30%,
+            rgba(0,0,0,.95) 90%
+        );
+}
+
+.card-content {
+    position: absolute;
+
+    z-index: 2;
+
+    left: 25px;
+    right: 25px;
+    bottom: 25px;
+}
+
+.card-number {
+    color: var(--yellow);
+
+    font-family: "Share Tech Mono", monospace;
+
+    font-size: 12px;
+}
+
+.card h3 {
+    font-family: "Barlow Condensed", sans-serif;
+
+    font-size: 38px;
+
+    text-transform: uppercase;
+}
+
+.card p {
+    color: #aaa;
+
+    font-size: 14px;
+
+    margin-top: 5px;
+}
+
+/* =====================================================
+   CITY IMAGE SECTION
+===================================================== */
+
+.city {
+    min-height: 650px;
+
+    display: flex;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            90deg,
+            #050505 5%,
+            rgba(5,5,5,.7) 40%,
+            rgba(5,5,5,.15)
+        ),
+
+        url("https://miro.medium.com/v2/resize%3Afit%3A1024/1%2A5eRM0RCiRw-SqiVilYs-EQ.png")
+        center / cover;
+}
+
+.city-content {
+    max-width: 600px;
+}
+
+.city-content h2 {
+    font-family: "Barlow Condensed", sans-serif;
+
+    font-size: 90px;
+
+    line-height: .8;
+
+    text-transform: uppercase;
+
+    margin-bottom: 30px;
+}
+
+.city-content h2 span {
+    color: var(--yellow);
+}
+
+.city-content p {
+    color: #bbb;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+}
+
+/* =====================================================
+   TERMINAL
+===================================================== */
+
+.terminal-section {
+    background:
+        radial-gradient(
+            circle at center,
+            #171700 0%,
+            #050505 45%
+        );
+}
+
+.terminal {
+    max-width: 900px;
+
+    margin: auto;
+
+    background: #050505;
+
+    border: 1px solid #444;
+
+    box-shadow:
+        0 0 50px rgba(252,238,10,.08);
+}
+
+.terminal-top {
+    display: flex;
+
+    align-items: center;
+
+    padding: 10px 15px;
+
+    background: #181818;
+
+    border-bottom: 1px solid #333;
+
+    font-family: "Share Tech Mono";
+}
+
+.terminal-dot {
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    margin-right: 7px;
+
+    background: var(--red);
+}
+
+.terminal-dot:nth-child(2) {
+    background: var(--yellow);
+}
+
+.terminal-dot:nth-child(3) {
+    background: #00ff66;
+}
+
+.terminal-name {
+    margin-left: 15px;
+
+    color: #888;
+}
+
+.terminal-body {
+    padding: 30px;
+
+    min-height: 350px;
+
+    font-family: "Share Tech Mono", monospace;
+
+    line-height: 2;
+
+    color: #aaa;
+}
+
+.green {
+    color: #00ff66;
+}
+
+.yellow {
+    color: var(--yellow);
+}
+
+.cyan {
+    color: var(--cyan);
+}
+
+.red {
+    color: var(--red);
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    padding: 40px 7%;
+
+    background: #050505;
+
+    border-top: 1px solid #333;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #555;
+
+    font-family: "Share Tech Mono";
+}
+
+footer span {
+    color: var(--yellow);
+}
+
+/* =====================================================
+   GLITCH
+===================================================== */
+
+.glitch {
+    animation: glitch 3s infinite;
+}
+
+@keyframes glitch {
+
+    0%, 92%, 100% {
+        transform: translate(0);
+    }
+
+    93% {
+        transform: translate(-3px, 2px);
+    }
+
+    94% {
+        transform: translate(3px, -2px);
+    }
+
+    95% {
+        transform: translate(-2px, 0);
+    }
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width: 700px) {
+
+    nav {
+        height: 60px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .hero {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .title {
+        font-size: 80px;
+    }
+
+    .hud {
+        display: none;
+    }
+
+    .city-content h2 {
+        font-size: 65px;
+    }
+
+    footer {
+        flex-direction: column;
+
+        gap: 10px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     NAV
+===================================================== -->
+
+<nav>
+
+    <div class="logo">
+        NIGHT<span>//</span>CITY
+    </div>
+
+    <div class="nav-links">
+        <a href="#districts">DISTRICTS</a>
+        <a href="#city">NIGHT CITY</a>
+        <a href="#terminal">NETRUN</a>
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<header class="hero">
+
+    <div class="hero-content">
+
+        <div class="kicker">
+            // NIGHT CITY NETWORK — CONNECTED
+        </div>
+
+        <h1 class="title glitch">
+            <span class="yellow">NIGHT</span><br>
+            CITY
+        </h1>
+
+        <p class="subtitle">
+            Wake up, Samurai. The city doesn't sleep.
+            Megacorps own the skyline, fixers own the streets,
+            and somewhere underneath it all is a network
+            waiting to be breached.
+        </p>
+
+        <div class="buttons">
+
+            <a class="btn" href="#districts">
+                ENTER NIGHT CITY
+            </a>
+
+            <a class="btn dark" href="#terminal">
+                JACK IN
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- HUD -->
+
+    <div class="hud">
+
+        <div class="hud-title">
+            SYSTEM STATUS
+        </div>
+
+        CYBERWARE
+
+        <div class="bar one">
+            <span></span>
+        </div>
+
+        STREET CRED
+
+        <div class="bar two">
+            <span></span>
+        </div>
+
+        NEURAL LINK
+
+        <div class="bar three">
+            <span></span>
+        </div>
+
+        <div class="green">
+            ● CONNECTION STABLE
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     DISTRICTS
+===================================================== -->
+
+<section id="districts">
+
+    <div class="section-label">
+        NC // DATABASE
+    </div>
+
+    <div class="section-title">
+        CITY <span>DISTRICTS</span>
+    </div>
+
+
+    <div class="cards">
+
+        <!-- CARD 1 -->
+
+        <article class="card">
+
+            <div
+                class="card-image"
+                style="
+                background-image:
+                url('https://miro.medium.com/v2/resize%3Afit%3A1024/1%2A5eRM0RCiRw-SqiVilYs-EQ.png');
+                ">
+            </div>
+
+            <div class="card-content">
+
+                <div class="card-number">
+                    DISTRICT // 01
+                </div>
+
+                <h3>WATSON</h3>
+
+                <p>
+                    Neon streets. Black-market cyberware.
+                    Netrunners everywhere.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- CARD 2 -->
+
+        <article class="card">
+
+            <div
+                class="card-image"
+                style="
+                background-image:
+                url('https://7themes.su/_ph/34/650146611.jpg');
+                ">
+            </div>
+
+            <div class="card-content">
+
+                <div class="card-number">
+                    DISTRICT // 02
+                </div>
+
+                <h3>DOWNTOWN</h3>
+
+                <p>
+                    Corporate towers reaching beyond
+                    the clouds.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- CARD 3 -->
+
+        <article class="card">
+
+            <div
+                class="card-image"
+                style="
+                background-image:
+                url('https://media.easy-peasy.ai/27feb2bb-aeb4-4a83-9fb6-8f3f2a15885e/7c0c6f11-09ac-4270-abcd-e3bcafb8aa97.png');
+                ">
+            </div>
+
+            <div class="card-content">
+
+                <div class="card-number">
+                    DISTRICT // 03
+                </div>
+
+                <h3>BADLANDS</h3>
+
+                <p>
+                    Outside the walls, nobody owns you.
+                    Nobody protects you either.
+                </p>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CITY
+===================================================== -->
+
+<section id="city" class="city">
+
+    <div class="city-content">
+
+        <div class="section-label">
+            NIGHT CITY // 2077
+        </div>
+
+        <h2>
+            LIVE<br>
+            <span>FAST.</span><br>
+            DIE<br>
+            <span>LEGENDARY.</span>
+        </h2>
+
+        <p>
+            A city built from chrome, concrete and ambition.
+            Holograms light the rain while autonomous vehicles
+            tear through the streets below.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TERMINAL
+===================================================== -->
+
+<section id="terminal" class="terminal-section">
+
+    <div class="section-label">
+        NETRUNNER // SECURE CHANNEL
+    </div>
+
+    <div class="section-title">
+        BREACH <span>PROTOCOL</span>
+    </div>
+
+
+    <div class="terminal">
+
+        <div class="terminal-top">
+
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+
+            <div class="terminal-name">
+                root@nightcity:~#
+            </div>
+
+        </div>
+
+
+        <div class="terminal-body" id="terminal">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div>
+        NIGHT//CITY © 2077
+    </div>
+
+    <div>
+        <span>●</span> SYSTEM ONLINE
+    </div>
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   TERMINAL TYPING EFFECT
+===================================================== */
+
+const terminal =
+document.getElementById("terminal");
+
+const lines = [
+
+    '<span class="green">root@nightcity</span>:~# connect',
+
+    '<span class="yellow">[SYSTEM]</span> Establishing neural link...',
+
+    '<span class="yellow">[SYSTEM]</span> Bypassing ICE...',
+
+    '<span class="cyan">[NET]</span> Searching Night City network...',
+
+    '<span class="green">[OK]</span> Connection established.',
+
+    '',
+
+    '<span class="red">WARNING:</span> Corporate firewall detected.',
+
+    '<span class="yellow">ICE LEVEL:</span> ███████░░░ 72%',
+
+    '',
+
+    '<span class="cyan">ACCESS GRANTED.</span>',
+
+    '',
+
+    '<span class="green">root@nightcity</span>:~# welcome, runner_07'
+
+];
+
+let index = 0;
+
+function typeLine() {
+
+    if(index >= lines.length)
+        return;
+
+    const line =
+        document.createElement("div");
+
+    line.innerHTML =
+        lines[index];
+
+    terminal.appendChild(line);
+
+    index++;
+
+    setTimeout(typeLine, 350);
+}
+
+typeLine();
+
+
+/* =====================================================
+   RANDOM GLITCH EFFECT
+===================================================== */
+
+setInterval(() => {
+
+    const title =
+        document.querySelector(".title");
+
+    title.style.transform =
+        `translate(${Math.random() * 4 - 2}px,
+                   ${Math.random() * 3 - 1.5}px)`;
+
+    setTimeout(() => {
+        title.style.transform = "translate(0)";
+    }, 80);
+
+}, 4000);
+
+</script>
+
+</body>
+</html>
